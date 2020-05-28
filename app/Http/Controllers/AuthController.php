@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Audit;
 use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\AuthorTest;
 
@@ -22,13 +23,17 @@ class AuthController extends Controller
                 ->withErrors([ "error" => "Incorrect email or password." ]);
         }
 
+        Audit::logLogin();
+
         return redirect()->route("dashboard");
     }
 
     public function logout()
     {
-        Auth::logout();
+        Audit::logLogout();
 
+        Auth::logout();
+        
         return redirect()->route("auth.login.show");
     }
 }

@@ -1,0 +1,34 @@
+.fastest-transition {
+    @apply transition duration-75 ease-in-out;
+}
+
+.__page {
+    flex: 1 0 auto;
+}
+
+.nav-item {
+    @apply flex items-center px-2 text-sm text-gray-500;
+    &:hover, &.active {
+        @apply text-gray-700;
+    }
+    &:focus {
+        @apply outline-none;
+    }
+}
+
+.btn {
+    @apply flex items-center py-1 px-3 font-display font-semibold uppercase text-sm rounded-full w-auto fastest-transition;
+    &.success {
+        @apply bg-green-100 text-green-500;
+        &:hover {
+            @apply bg-green-200 text-green-600;
+        }
+    }
+    &:focus {
+        @apply outline-none;
+    }
+}
+
+.circle {
+    @apply flex w-1 h-1 rounded-full;
+}

@@ -10,16 +10,13 @@
         <link href="{{ mix("css/app.css") }}" rel="stylesheet">
     </head>
     <body class="flex flex-col h-full p-0 mx-auto my-0 bg-gray-50">
-        <div class="flex flex-col h-full w-full" id="app">
+        <div class="flex flex-col h-full w-full">
             <div class="__page">
-                @include("partials.header")
                 @yield("content")
             </div>
             @include("partials.footer")
         </div>
-        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
         <script src="{{ mix("js/app.js") }}"></script>
-        <script src="{{ mix("js/ckeditor.js") }}" defer></script>
         @stack("scripts")
     </body>
 </html>
