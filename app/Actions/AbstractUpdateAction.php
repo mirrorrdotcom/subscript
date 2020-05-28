@@ -2,7 +2,10 @@
 
 namespace App\Actions;
 
+use App\Contracts\Auditable;
+use App\Contracts\AuditAction;
 use App\Contracts\ConditionalAction;
+use App\Models\Audit;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +20,9 @@ abstract class AbstractUpdateAction
 
         try {
             $this->update($model, $data);
-            // TODO: Audit updating the existing model.
+            if ($this->shouldAudit($model)) {
+                $this->audit($model);
+            }
             return true;
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -42,6 +47,24 @@ abstract class AbstractUpdateAction
         }
 
         return true;
+    }
+
+    private function shouldAudit($resource): bool
+    {
+        if (!($this instanceof AuditAction)) {
+            return false;
+        }
+
+        if (!($resource instanceof Auditable)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function audit(Auditable $auditable)
+    {
+        Audit::logUpdate($auditable);
     }
 
     abstract protected function update(Model $model, array $data);

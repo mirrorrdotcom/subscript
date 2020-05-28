@@ -2,7 +2,10 @@
 
 namespace App\Actions;
 
+use App\Contracts\Auditable;
+use App\Contracts\AuditAction;
 use App\Contracts\ConditionalAction;
+use App\Models\Audit;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +20,9 @@ abstract class AbstractDeleteAction
 
         try {
             $this->delete($model, $data);
-            // TODO: Audit deleting the existing model.
+            if ($this->shouldAudit($model)) {
+                $this->audit($model);
+            }
             return true;
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -37,6 +42,24 @@ abstract class AbstractDeleteAction
         }
 
         return true;
+    }
+
+    private function shouldAudit($resource): bool
+    {
+        if (!($this instanceof AuditAction)) {
+            return false;
+        }
+
+        if (!($resource instanceof Auditable)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function audit(Auditable $auditable)
+    {
+        Audit::logDelete($auditable);
     }
 
     abstract protected function delete(Model $model, array $data = []);

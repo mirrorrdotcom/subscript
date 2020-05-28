@@ -2,7 +2,10 @@
 
 namespace App\Actions;
 
+use App\Contracts\Auditable;
+use App\Contracts\AuditAction;
 use App\Contracts\ConditionalAction;
+use App\Models\Audit;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -16,7 +19,9 @@ abstract class AbstractCreateAction
 
         try {
             $model = $this->create($data);
-            // TODO: Audit creating the new model.
+            if ($this->shouldAudit($model)) {
+                $this->audit($model);
+            }
             return true;
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -36,6 +41,24 @@ abstract class AbstractCreateAction
         }
 
         return true;
+    }
+
+    private function shouldAudit($resource): bool
+    {
+        if (!($this instanceof AuditAction)) {
+            return false;
+        }
+
+        if (!($resource instanceof Auditable)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function audit(Auditable $auditable)
+    {
+        Audit::logCreate($auditable);
     }
 
     abstract protected function create(array $data);

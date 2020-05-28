@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Contracts\Auditable;
 use App\QueryBuilders\SubscriptionModelQueryBuilder;
 use App\Traits\HasRtf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SubscriptionModel extends Model
+class SubscriptionModel extends Model implements Auditable
 {
     use SoftDeletes, HasRtf;
 
