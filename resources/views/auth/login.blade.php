@@ -1,7 +1,7 @@
-@extends("layouts.app")
+@extends("layouts.unauthenticated")
 
 @section("content")
-    <div class="w-full h-screen flex items-start justify-center">
+    <div class="w-full flex items-start justify-center">
         <div class="w-full md:w-2/3 xl:w-1/3 py-5 px-6 bg-white shadow-lg rounded mt-2 md:mt-10">
             <h1 class="font-display font-bold text-2xl text-gray-600 mb-2">Login</h1>
             <p class="font-body text-sm text-gray-400">Login to your account to start managing subscriptions and plans.</p>
