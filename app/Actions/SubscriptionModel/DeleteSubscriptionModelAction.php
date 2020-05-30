@@ -11,5 +11,7 @@ class DeleteSubscriptionModelAction extends AbstractDeleteAction implements Audi
     protected function delete(Model $model, array $data = [])
     {
         $model->delete();
+
+        $model->plans()->delete();
     }
 }
