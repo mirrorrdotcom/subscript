@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Feature;
 use App\Models\Plan;
 use App\Models\SubscriptionModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,5 +24,18 @@ class SubscriptionModelTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $model->plans);
         $this->assertCount($count, $model->plans);
+    }
+
+    /** @test */
+    public function it_has_multiple_features()
+    {
+        $model = factory(SubscriptionModel::class)->create();
+
+        $count = 3;
+        factory(Feature::class, $count)
+            ->create([ "subscription_model_id" => $model->id ]);
+
+        $this->assertInstanceOf(Collection::class, $model->features);
+        $this->assertCount($count, $model->features);
     }
 }

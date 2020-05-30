@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Plan;
+namespace App\Http\Requests\Feature;
 
-use App\Services\TimeInterval;
 use App\Traits\HasRtf;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class CreatePlanRequest extends FormRequest
+class CreateFeatureRequest extends FormRequest
 {
     use HasRtf;
 
@@ -21,8 +20,7 @@ class CreatePlanRequest extends FormRequest
         $this->merge([
             "subscription_model_id" => $this->subscription_model->id,
             "slug" => Str::slug($this->slug),
-            "is_active" => $this->has("is_active"),
-            "features" => $this->features ?? []
+            "is_active" => $this->has("is_active")
         ]);
     }
 
@@ -44,10 +42,10 @@ class CreatePlanRequest extends FormRequest
                 "string",
                 "min:2",
                 "max:255",
-                Rule::unique("plans", "slug")
+                Rule::unique("features", "slug")
                     ->where(fn($q) =>
-                        $q->whereNull("deleted_at")
-                            ->where("subscription_model_id", $this->subscription_model->id)),
+                    $q->whereNull("deleted_at")
+                        ->where("subscription_model_id", $this->subscription_model->id)),
             ],
             "name" => [
                 "required",
@@ -57,20 +55,7 @@ class CreatePlanRequest extends FormRequest
             ],
             "description" => [ "nullable", "string", "min:2" ],
             "is_active" => [ "required", "boolean" ],
-            "trial_period" => [ "numeric", "gte:0" ],
-            "trial_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
-            "recurring_period" => [ "numeric", "gte:0" ],
-            "recurring_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
-            "grace_period" => [ "numeric", "gte:0" ],
-            "grace_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
-            "features" => [ "array", "present" ],
-            "features.*" => [
-                Rule::exists("features", "id")
-                    ->where(fn($q) =>
-                        $q->whereNull("deleted_at")
-                            ->where("subscription_model_id", $this->subscription_model->id)
-                    )
-            ]
+            "limit" => [ "nullable", "numeric", "gt:0" ]
         ];
     }
 }

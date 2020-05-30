@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use App\Contracts\Auditable;
+use App\QueryBuilders\FeatureQueryBuilder;
 use App\Traits\HasRtf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Plan extends Model implements Auditable
+class Feature extends Model implements Auditable
 {
     use SoftDeletes, HasRtf;
 
     protected $fillable = [
         "subscription_model_id", "slug", "name", "description", "is_active",
-        "trial_period", "trial_interval", "recurring_period",
-        "recurring_interval", "grace_period", "grace_interval", "sort_order"
+        "limit"
     ];
 
     protected $casts = [
@@ -24,13 +24,22 @@ class Plan extends Model implements Auditable
     ];
 
     protected $attributes = [
-        "is_active" => true,
-        "sort_order" => 0
+        "is_active" => true
     ];
+
+    public function newEloquentBuilder($query)
+    {
+        return new FeatureQueryBuilder($query);
+    }
 
     public function getStrippedDescriptionAttribute(): string
     {
         return $this->stripRtfField("description", 20);
+    }
+
+    public function getIsInfiniteAttribute(): bool
+    {
+        return $this->limit == null;
     }
 
     public function subscription_model(): BelongsTo
@@ -42,13 +51,13 @@ class Plan extends Model implements Auditable
         );
     }
 
-    public function features(): BelongsToMany
+    public function plans(): BelongsToMany
     {
         return $this->belongsToMany(
-            Feature::class,
+            Plan::class,
             "feature_plan",
-            "plan_id",
-            "feature_id"
+            "feature_id",
+            "plan_id"
         );
     }
 }

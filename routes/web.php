@@ -36,5 +36,14 @@ Route::middleware("auth")->group(function() {
             Route::put("{plan}", "PlansController@update")->name("update");
             Route::delete("{plan}", "PlansController@destroy")->name("destroy");
         });
+        // Features Routes
+        Route::prefix("{subscription_model}/features")->name("features.")->group(function() {
+            Route::get("", "FeaturesController@all")->name("all");
+            Route::get("create", "FeaturesController@create")->name("create");
+            Route::post("", "FeaturesController@store")->name("store");
+            Route::get("{feature}", "FeaturesController@edit")->name("edit");
+            Route::put("{feature}", "FeaturesController@update")->name("update");
+            Route::delete("{feature}", "FeaturesController@destroy")->name("destroy");
+        });
     });
 });

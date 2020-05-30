@@ -43,4 +43,13 @@ class SubscriptionModel extends Model implements Auditable
             "id"
         );
     }
+
+    public function features(): HasMany
+    {
+        return $this->hasMany(
+            Feature::class,
+            "subscription_model_id",
+            "id"
+        );
+    }
 }

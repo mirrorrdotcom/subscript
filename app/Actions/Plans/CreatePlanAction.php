@@ -10,6 +10,10 @@ class CreatePlanAction extends AbstractCreateAction implements AuditAction
 {
     protected function create(array $data)
     {
-        return Plan::create($data);
+        $plan = Plan::create($data);
+
+        $plan->features()->sync($data["features"]);
+
+        return $plan;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Plan;
+namespace App\Http\Requests\Feature;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeletePlanRequest extends FormRequest
+class DeleteFeatureRequest extends FormRequest
 {
     public function authorize()
     {
@@ -12,11 +12,11 @@ class DeletePlanRequest extends FormRequest
             return false;
         }
 
-        if (!$this->plan) {
+        if (!$this->feature) {
             return false;
         }
 
-        if ($this->plan->subscription_model_id !== $this->subscription_model->id) {
+        if ($this->feature->subscription_model_id !== $this->subscription_model->id) {
             return false;
         }
 
