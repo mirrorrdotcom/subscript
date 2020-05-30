@@ -5,6 +5,11 @@ Breadcrumbs::for('dashboard', function($trail) {
     $trail->push("Dashboard", route("dashboard"));
 });
 
+// Audits
+Breadcrumbs::for('audits.all', function($trail) {
+    $trail->push('Audits', route('audits.all'));
+});
+
 // Subscription Models
 Breadcrumbs::for('subscription-models.all', function($trail) {
     $trail->push('Subscription Models', route('subscription-models.all'));

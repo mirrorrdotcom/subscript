@@ -19,6 +19,10 @@ Route::name("auth.")->group(function() {
 Route::middleware("auth")->group(function() {
     // Dashboard Route
     Route::get("", "DashboardController@show")->name("dashboard");
+    // Audit Routes
+    Route::prefix("audits")->name("audits.")->group(function() {
+        Route::get("", "AuditsController@all")->name("all");
+    });
     // Subscription Model Routes
     Route::prefix("subscription-models")->name("subscription-models.")->group(function() {
         Route::get("", "SubscriptionModelsController@all")->name("all");
