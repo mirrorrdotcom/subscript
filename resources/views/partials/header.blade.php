@@ -20,3 +20,4 @@
         </nav>
     </x-page-container>
 </div>
+@yield("breadcrumbs")

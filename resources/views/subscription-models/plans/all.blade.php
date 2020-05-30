@@ -1,5 +1,9 @@
 @extends("layouts.subscription-model")
 
+@section("breadcrumbs")
+    {{ Breadcrumbs::render('subscription-models.plans.all', $subscription_model) }}
+@endsection
+
 @section("title")
     Plans
 @endsection

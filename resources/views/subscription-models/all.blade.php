@@ -1,5 +1,9 @@
 @extends("layouts.app")
 
+@section("breadcrumbs")
+    {{ Breadcrumbs::render('subscription-models.all') }}
+@endsection
+
 @section("content")
     <x-page-container class="py-5">
         <div class="flex items-center justify-between mb-4 md:mb-6">
