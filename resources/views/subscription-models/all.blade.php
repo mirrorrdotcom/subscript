@@ -10,7 +10,7 @@
             </a>
         </div>
         @if(!$resource->count())
-            <p class="py-6 font-dispaly text-gray-400 text-center leading-none">
+            <p class="py-6 font-body text-gray-400 text-center leading-none">
                 <i class="uil uil-desert text-2xl leading-none mr-1/2"></i>
                 You do not have any subscription models. To create one, click on the New button.
             </p>

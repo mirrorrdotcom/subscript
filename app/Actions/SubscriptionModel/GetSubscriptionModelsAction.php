@@ -9,6 +9,8 @@ class GetSubscriptionModelsAction
 {
     public function execute(): Collection
     {
-        return SubscriptionModel::latest()->get();
+        return SubscriptionModel::with("plans")
+            ->latest()
+            ->get();
     }
 }
