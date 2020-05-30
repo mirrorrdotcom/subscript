@@ -61,7 +61,7 @@
                                value="{{ old('recurring_interval') ?? $plan->recurring_interval }}"></x-form-select>
             </div>
         </div>
-        <div class="pb-4 mb-2">
+        <div class="pb-4 mb-4 border-b border-gray-200">
             <h2 class="font-display text-sm text-gray-400 leading-none uppercase mb-3">Grace</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <x-form-input type="number"
@@ -75,6 +75,28 @@
                                :options="$intervals"
                                value="{{ old('grace_interval') ?? $plan->grace_interval }}"></x-form-select>
             </div>
+        </div>
+        <div class="pb-4 mb-2">
+            <h2 class="font-display text-sm text-gray-400 leading-none uppercase mb-2">Features</h2>
+            <p class="font-body text-sm text-orange-400 leading-none mb-4">
+                <i class="uil uil-info-circle"></i>
+                Select the features that need to be added to the plan.
+            </p>
+            @if(!count($features))
+                <p class="py-4 font-body text-gray-400 text-center leading-none">
+                    <i class="uil uil-desert text-2xl leading-none mr-1/2"></i>
+                    You do not have any features to be added to the plan. Create new ones from the Features section.
+                </p>
+            @else
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    @foreach($features as $id => $name)
+                        <x-form-checkbox name="features[]"
+                                         label="{{ $name }}"
+                                         value="{{ $id }}"
+                                         checked="{{ in_array($id, $chosen_features) }}"></x-form-checkbox>
+                    @endforeach
+                </div>
+            @endif
         </div>
         <div class="flex justify-end">
             <button class="btn success"><i class="uil uil-save mr-1/2"></i>Save</button>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Actions\Plans\CreatePlanAction;
 use App\Actions\Plans\DeletePlanAction;
+use App\Actions\Plans\GetPlanChosenFeatures;
 use App\Actions\Plans\GetSubscriptionModelPlansAction;
 use App\Actions\Plans\UpdatePlanAction;
+use App\Actions\SubscriptionModel\GetFeaturesForSubscriptionModel;
 use App\Http\Requests\Plan\CreatePlanRequest;
 use App\Http\Requests\Plan\DeletePlanRequest;
 use App\Http\Requests\Plan\UpdatePlanRequest;
@@ -29,6 +31,7 @@ class PlansController extends Controller
     {
         return view("subscription-models.plans.create")
             ->with("intervals", TimeInterval::dropdownOptions())
+            ->with("features", (new GetFeaturesForSubscriptionModel())->execute($subscription_model))
             ->with("subscription_model", $subscription_model);
     }
 
@@ -52,6 +55,8 @@ class PlansController extends Controller
         return view("subscription-models.plans.edit")
             ->with("intervals", TimeInterval::dropdownOptions())
             ->with("subscription_model", $subscription_model)
+            ->with("features", (new GetFeaturesForSubscriptionModel())->execute($subscription_model))
+            ->with("chosen_features", (new GetPlanChosenFeatures())->execute($plan))
             ->with("plan", $plan);
     }
 

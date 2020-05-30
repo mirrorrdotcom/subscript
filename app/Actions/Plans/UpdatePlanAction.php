@@ -11,5 +11,7 @@ class UpdatePlanAction extends AbstractUpdateAction implements AuditAction
     protected function update(Model $model, array $data)
     {
         $model->update($data);
+
+        $model->features()->sync($data["features"]);
     }
 }
