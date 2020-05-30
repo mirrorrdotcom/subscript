@@ -1,5 +1,9 @@
 @extends("layouts.app")
 
+@section("breadcrumbs")
+    {{ Breadcrumbs::render('subscription-models.create') }}
+@endsection
+
 @section("content")
     <x-page-container class="py-5">
         <h1 class="font-display font-bold text-2xl text-gray-700 mb-4">New Subscription Model</h1>

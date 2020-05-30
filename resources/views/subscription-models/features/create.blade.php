@@ -1,5 +1,9 @@
 @extends("layouts.subscription-model")
 
+@section("breadcrumbs")
+    {{ Breadcrumbs::render('subscription-models.features.create', $subscription_model) }}
+@endsection
+
 @section("title")
     New Feature
 @endsection
