@@ -1,7 +1,7 @@
 @extends("layouts.subscription-model")
 
 @section("title")
-    Create New Plan
+    New Plan
 @endsection
 
 @section("subscription-model-content")

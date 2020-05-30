@@ -3,18 +3,18 @@
 namespace App\Models;
 
 use App\Contracts\Auditable;
-use App\QueryBuilders\SubscriptionModelQueryBuilder;
 use App\Traits\HasRtf;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SubscriptionModel extends Model implements Auditable
+class Feature extends Model implements Auditable
 {
     use SoftDeletes, HasRtf;
 
     protected $fillable = [
-        "slug", "name", "description", "is_active"
+        "subscription_model_id", "slug", "name", "description", "is_active",
+        "limit"
     ];
 
     protected $casts = [
@@ -25,29 +25,20 @@ class SubscriptionModel extends Model implements Auditable
         "is_active" => true
     ];
 
-    public function newEloquentBuilder($query)
-    {
-        return new SubscriptionModelQueryBuilder($query);
-    }
-
     public function getStrippedDescriptionAttribute(): string
     {
         return $this->stripRtfField("description", 20);
     }
 
-    public function plans(): HasMany
+    public function getIsInfiniteAttribute(): bool
     {
-        return $this->hasMany(
-            Plan::class,
-            "subscription_model_id",
-            "id"
-        );
+        return $this->limit == null;
     }
 
-    public function features(): HasMany
+    public function subscription_model(): BelongsTo
     {
-        return $this->hasMany(
-            Feature::class,
+        return $this->belongsTo(
+            SubscriptionModel::class,
             "subscription_model_id",
             "id"
         );
