@@ -37,7 +37,7 @@ class SubscriptionModelsController extends Controller
     public function edit(SubscriptionModel $subscription_model)
     {
         return view("subscription-models.edit")
-            ->with("resource", $subscription_model);
+            ->with("subscription_model", $subscription_model);
     }
 
     public function update(SubscriptionModel $subscription_model, UpdateSubscriptionModelRequest $request) {

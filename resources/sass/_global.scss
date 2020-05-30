@@ -32,3 +32,25 @@
 .circle {
     @apply flex w-1 h-1 rounded-full;
 }
+
+.custom-table {
+    @apply rounded;
+    thead {
+        @apply font-display font-bold text-gray-500 text-xs uppercase bg-gray-200 rounded;
+        th, th a {
+            @apply px-3 py-1 font-display font-bold uppercase text-gray-500 text-xs text-left bg-gray-200;
+        }
+    }
+    tr {
+        @apply border-t;
+        td {
+            @apply px-3 py-1 text-sm border-b;
+        }
+        &:last-child {
+            @apply border-b;
+        }
+    }
+    .table-action {
+        @apply no-underline text-blue-500;
+    }
+}

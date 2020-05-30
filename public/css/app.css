@@ -16707,6 +16707,66 @@ video {
   border-radius: 9999px;
 }
 
+.custom-table {
+  border-radius: 0.25rem;
+}
+
+.custom-table thead {
+  font-family: Poppins, Almarai, sans-serif;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #9E9E9E;
+  color: rgba(158, 158, 158, var(--text-opacity));
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  --bg-opacity: 1;
+  background-color: #EEEEEE;
+  background-color: rgba(238, 238, 238, var(--bg-opacity));
+  border-radius: 0.25rem;
+}
+
+.custom-table thead th, .custom-table thead th a {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-family: Poppins, Almarai, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  --text-opacity: 1;
+  color: #9E9E9E;
+  color: rgba(158, 158, 158, var(--text-opacity));
+  font-size: 0.75rem;
+  text-align: left;
+  --bg-opacity: 1;
+  background-color: #EEEEEE;
+  background-color: rgba(238, 238, 238, var(--bg-opacity));
+}
+
+.custom-table tr {
+  border-top-width: 1px;
+}
+
+.custom-table tr td {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 0.875rem;
+  border-bottom-width: 1px;
+}
+
+.custom-table tr:last-child {
+  border-bottom-width: 1px;
+}
+
+.custom-table .table-action {
+  text-decoration: none;
+  --text-opacity: 1;
+  color: #2196F3;
+  color: rgba(33, 150, 243, var(--text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
