@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Contracts\Auditable;
+use App\Traits\HasAuditState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Audit extends Model
 {
+    use HasAuditState;
+
     protected $fillable = [
         "user_id", "action", "auditable_id", "auditable_type", "ip_address",
         "user_agent"
