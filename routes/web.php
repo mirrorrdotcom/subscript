@@ -23,6 +23,15 @@ Route::middleware("auth")->group(function() {
     Route::prefix("audits")->name("audits.")->group(function() {
         Route::get("", "AuditsController@all")->name("all");
     });
+    // Currencies Routes
+    Route::prefix("currencies")->name("currencies.")->group(function() {
+        Route::get("", "CurrenciesController@all")->name("all");
+        Route::get("create", "CurrenciesController@create")->name("create");
+        Route::post("", "CurrenciesController@store")->name("store");
+        Route::get("{currency}", "CurrenciesController@edit")->name("edit");
+        Route::put("{currency}", "CurrenciesController@update")->name("update");
+        Route::delete("{currency}", "CurrenciesController@destroy")->name("destroy");
+    });
     // Subscription Model Routes
     Route::prefix("subscription-models")->name("subscription-models.")->group(function() {
         Route::get("", "SubscriptionModelsController@all")->name("all");

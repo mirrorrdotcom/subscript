@@ -6,9 +6,18 @@
             {{ config("app.name", "Subscript") }}
         </a>
         <nav class="flex items-center p-0">
-            <a href="{{ route("subscription-models.all") }}" class="nav-item">
+            <a href="{{ route("subscription-models.all") }}" class="nav-item {{ request()->is("subscription-models*") ? "active" : "" }}">
                 <i class="uil uil-box mr-1/2"></i>
                 Models
+            </a>
+            <a href="{{ route("currencies.all") }}" class="nav-item {{ request()->is("currencies*") ? "active" : "" }}">
+                <i class="uil uil-money-bill mr-1/2"></i>
+                Currencies
+            </a>
+
+            <a href="{{ route("audits.all") }}" class="nav-item {{ request()->is("audits*") ? "active" : "" }}">
+                <i class="uil uil-file-network mr-1/2"></i>
+                Audits
             </a>
             <form action="{{ route("auth.logout") }}" method="post">
                 @csrf
