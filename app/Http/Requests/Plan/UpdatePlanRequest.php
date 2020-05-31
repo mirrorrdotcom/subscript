@@ -22,6 +22,7 @@ class UpdatePlanRequest extends FormRequest
             "subscription_model_id" => $this->subscription_model->id,
             "slug" => Str::slug($this->slug),
             "is_active" => $this->has("is_active"),
+            "price" => (float)$this->price,
             "features" => $this->features ?? []
         ]);
     }
@@ -72,6 +73,7 @@ class UpdatePlanRequest extends FormRequest
             "recurring_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
             "grace_period" => [ "numeric", "gte:0" ],
             "grace_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
+            "price" => [ "required", "numeric", "gte:0" ],
             "features" => [ "array", "present" ],
             "features.*" => [
                 Rule::exists("features", "id")

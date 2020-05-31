@@ -80,6 +80,19 @@
                                value="{{ old('grace_interval') ?? $plan->grace_interval }}"></x-form-select>
             </div>
         </div>
+        <div class="pb-4 mb-4 border-b border-gray-200">
+            <h2 class="font-display text-sm text-gray-400 leading-none uppercase mb-2">Price</h2>
+            <p class="font-body text-sm text-orange-400 leading-none mb-4">
+                <i class="uil uil-info-circle"></i>
+                Enter the price in USD and it will be automatically converted according to the rates specified in the Currencies section.
+            </p>
+            <x-form-input type="number"
+                          name="price"
+                          placeholder="e.g: 10"
+                          label="Price (in USD)"
+                          step="0.001"
+                          value="{{ old('price') ?? $plan->price }}"></x-form-input>
+        </div>
         <div class="pb-4 mb-2">
             <h2 class="font-display text-sm text-gray-400 leading-none uppercase mb-2">Features</h2>
             <p class="font-body text-sm text-orange-400 leading-none mb-4">

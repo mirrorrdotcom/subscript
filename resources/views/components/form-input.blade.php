@@ -13,6 +13,7 @@
            id="{{ $name }}"
            name="{{ $name }}"
            autocomplete="{{ $autocomplete }}"
+           step="{{ $step }}"
            value="{{ $value }}"/>
     @error($name)
     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

@@ -32,7 +32,7 @@
                 <x-form-input type="text"
                               name="symbol"
                               placeholder="e.g: LBP"
-                              label="Symbol"
+                              label="Symbol (Optional)"
                               value="{{ old('symbol') ?? $currency->symbol }}"></x-form-input>
             </div>
             <div class="flex justify-between">

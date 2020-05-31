@@ -31,7 +31,14 @@
                     </p>
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-display font-semibold text-gray-500 text-lg">{{ $item->name }}</h3>
-                        <span class="circle {{ $item->is_active ? "bg-green-500" : "bg-red-400" }}"></span>
+                        <div class="flex items-center">
+                            @if($item->is_free)
+                                <p class="text-sm text-blue-300 leading-none uppercase mr-3">Free</p>
+                            @else
+                                <p class="text-sm text-purple-500 leading-none mr-3">USD {{ $item->price }}</p>
+                            @endif
+                            <span class="circle {{ $item->is_active ? "bg-green-500" : "bg-red-400" }}"></span>
+                        </div>
                     </div>
                     <p class="font-body text-gray-400 text-sm">{{ $item->stripped_description }}</p>
                 </div>
