@@ -10,6 +10,19 @@ Breadcrumbs::for('audits.all', function($trail) {
     $trail->push('Audits', route('audits.all'));
 });
 
+// Currencies
+Breadcrumbs::for("currencies.all", function($trail) {
+    $trail->push("Currencies", route("currencies.all"));
+});
+Breadcrumbs::for("currencies.create", function($trail) {
+    $trail->parent("currencies.all");
+    $trail->push("New", route("currencies.create"));
+});
+Breadcrumbs::for("currencies.edit", function($trail, $currency) {
+    $trail->parent("currencies.all");
+    $trail->push(strtoupper($currency->code), route("currencies.edit", [ "currency" => $currency ]));
+});
+
 // Subscription Models
 Breadcrumbs::for('subscription-models.all', function($trail) {
     $trail->push('Subscription Models', route('subscription-models.all'));

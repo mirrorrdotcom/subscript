@@ -19,6 +19,7 @@ $factory->define(Plan::class, function (Faker $faker) {
         "recurring_interval" => $faker->numberBetween(0, 8),
         "grace_period" => $faker->numerify("#"),
         "grace_interval" => $faker->numberBetween(0, 8),
+        "price" => $faker->numerify("###"),
         "sort_order" => $faker->numerify("#")
     ];
 });

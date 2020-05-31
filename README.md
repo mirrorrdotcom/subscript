@@ -71,10 +71,11 @@ php artisan key:generate
 
 ### Creating the Database
 
-Create a new database and configure your database connection in the `.env` file. 
+Create a new database and configure your database connection in the `.env` file.
+The `--seed` option runs the seeder which generates basic data such as currencies.  
 
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
 ### Running the Tests

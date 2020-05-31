@@ -16,7 +16,8 @@ class Plan extends Model implements Auditable
     protected $fillable = [
         "subscription_model_id", "slug", "name", "description", "is_active",
         "trial_period", "trial_interval", "recurring_period",
-        "recurring_interval", "grace_period", "grace_interval", "sort_order"
+        "recurring_interval", "grace_period", "grace_interval", "price",
+        "sort_order"
     ];
 
     protected $casts = [
@@ -31,6 +32,19 @@ class Plan extends Model implements Auditable
     public function getStrippedDescriptionAttribute(): string
     {
         return $this->stripRtfField("description", 20);
+    }
+
+    public function getIsFreeAttribute(): bool
+    {
+        if ($this->price == null) {
+            return true;
+        }
+
+        if ($this->price == 0) {
+            return true;
+        }
+
+        return false;
     }
 
     public function subscription_model(): BelongsTo

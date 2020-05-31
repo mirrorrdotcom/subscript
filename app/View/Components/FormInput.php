@@ -13,6 +13,7 @@ class FormInput extends Component
     public ?string $placeholder = "";
     public ?string $class = "";
     public ?string $autocomplete;
+    public ?string $step;
     public $value;
 
     public function __construct(
@@ -23,6 +24,7 @@ class FormInput extends Component
         ?string $placeholder = "",
         ?string $class = "",
         ?string $autocomplete = "off",
+        ?string $step = "",
         $value = null
     ) {
         $this->name = $name;
@@ -32,6 +34,7 @@ class FormInput extends Component
         $this->placeholder = $placeholder;
         $this->class = $class;
         $this->autocomplete = $autocomplete;
+        $this->step = $step;
         $this->value = $value;
     }
 

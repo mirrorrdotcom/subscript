@@ -1,5 +1,9 @@
 @extends("layouts.app")
 
+@section("breadcrumbs")
+    {{ Breadcrumbs::render("audits.all") }}
+@endsection
+
 @section("content")
     <x-page-container class="py-5">
         <div class="flex items-center justify-between ">
