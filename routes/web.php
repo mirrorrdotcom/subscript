@@ -59,4 +59,13 @@ Route::middleware("auth")->group(function() {
             Route::delete("{feature}", "FeaturesController@destroy")->name("destroy");
         });
     });
+    // Customers Routes
+    Route::prefix("customers")->name("customers.")->group(function() {
+        Route::get("", "CustomersController@all")->name("all");
+        Route::get("create", "CustomersController@create")->name("create");
+        Route::post("", "CustomersController@store")->name("store");
+        Route::get("{customer}", "CustomersController@edit")->name("edit");
+        Route::put("{customer}", "CustomersController@update")->name("update");
+        Route::delete("{customer}", "CustomersController@destroy")->name("destroy");
+    });
 });

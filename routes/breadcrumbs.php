@@ -63,3 +63,16 @@ Breadcrumbs::for("subscription-models.plans.edit", function($trail, $subscriptio
     $trail->parent("subscription-models.plans.all", $subscription_model);
     $trail->push($plan->name, route("subscription-models.plans.edit", [ "subscription_model" => $subscription_model, "plan" => $plan ]));
 });
+
+//Customers
+Breadcrumbs::for("customers.all", function ($trail) {
+    $trail->push("Customers", route("customers.all"));
+});
+Breadcrumbs::for("customers.create", function ($trail) {
+    $trail->parent("customers.all");
+    $trail->push("New", route("customers.create"));
+});
+Breadcrumbs::for("customers.edit", function ($trail, $customer) {
+    $trail->parent("customers.all");
+    $trail->push($customer->name, route("customers.edit", ["customer" => $customer]));
+});

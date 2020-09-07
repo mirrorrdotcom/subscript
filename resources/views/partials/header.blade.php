@@ -19,6 +19,11 @@
                 <i class="uil uil-file-network mr-1/2"></i>
                 Audits
             </a>
+
+            <a href="{{ route("customers.all") }}" class="nav-item {{ request()->is("customers*") ? "active" : "" }}">
+                <i class="uil uil-user mr-1/2"></i>
+                Customers
+            </a>
             <form action="{{ route("auth.logout") }}" method="post">
                 @csrf
                 <button class="flex items-center px-2 text-sm text-red-300 hover:text-red-700 focus:outline-none">
