@@ -31,6 +31,7 @@ class UpdateCustomerRequest extends FormRequest
             "name" => [ "required", "string", "min:1", "max:255" ],
             "is_active" => [ "required", "boolean" ],
             "description" => [ "nullable", "string", "min:2" ],
+            "plan_id" => [ "nullable", "integer", "exists:plans,id" ]
         ];
     }
 }

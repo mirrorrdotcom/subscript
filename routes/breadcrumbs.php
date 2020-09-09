@@ -76,3 +76,8 @@ Breadcrumbs::for("customers.edit", function ($trail, $customer) {
     $trail->parent("customers.all");
     $trail->push($customer->name, route("customers.edit", ["customer" => $customer]));
 });
+
+Breadcrumbs::for("customers.plans.edit", function ($trail, $customer) {
+    $trail->parent("customers.edit", $customer);
+    $trail->push("Edit Plan", route("customers.plans.edit", ["customer" => $customer]));
+});

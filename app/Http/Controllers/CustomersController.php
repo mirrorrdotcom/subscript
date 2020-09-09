@@ -6,11 +6,13 @@ use App\Actions\Customers\CreateCustomerAction;
 use App\Actions\Customers\DeleteCustomerAction;
 use App\Actions\Customers\GetCustomersAction;
 use App\Actions\Customers\UpdateCustomerAction;
+use App\Actions\Plans\GetPlansAction;
+use App\Actions\Plans\UpdateCustomerPlanAction;
 use App\Http\Requests\Customer\CreateCustomerRequest;
 use App\Http\Requests\Customer\DeleteCustomerRequest;
+use App\Http\Requests\Customer\UpdateCustomerPlanRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Models\Customer;
-use App\Models\Plan;
 
 class CustomersController extends Controller
 {
@@ -40,14 +42,7 @@ class CustomersController extends Controller
         return view("customers.edit")
             ->with("customer", $customer)
             ->with("plan", $customer->plan)
-            ->with("options", $this->getPlans());
-    }
-
-    private function getPlans() : array
-    {
-        return Plan::orderBy('sort_order')
-            ->get(['name as label', 'id as value'])
-            ->toArray();
+            ->with("options", (new GetPlansAction())->execute());
     }
 
     public function update(Customer $customer, UpdateCustomerRequest $request)
@@ -68,5 +63,23 @@ class CustomersController extends Controller
         }
 
         return redirect()->route("customers.all");
+    }
+
+    public function plans(Customer $customer)
+    {
+        return view("customers.plans.edit")
+            ->with("customer", $customer)
+            ->with("plan", $customer->plan)
+            ->with("plans", (new GetPlansAction())->execute());
+    }
+
+    public function plansUpdate(Customer $customer, UpdateCustomerPlanRequest $request)
+    {
+        if (! (new UpdateCustomerPlanAction())->execute($customer, $request->validated())) {
+            return back()
+                ->withErrors([ "error" => "Could not update customer's plan. Please try again" ]);
+        }
+
+        return redirect()->route("customers.edit", [ "customer" => $customer ]);
     }
 }
