@@ -10,6 +10,7 @@ use App\Http\Requests\Customer\CreateCustomerRequest;
 use App\Http\Requests\Customer\DeleteCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Models\Customer;
+use App\Models\Plan;
 
 class CustomersController extends Controller
 {
@@ -36,7 +37,17 @@ class CustomersController extends Controller
 
     public function edit(Customer $customer)
     {
-        return view("customers.edit")->with("customer", $customer);
+        return view("customers.edit")
+            ->with("customer", $customer)
+            ->with("plan", $customer->plan)
+            ->with("options", $this->getPlans());
+    }
+
+    private function getPlans() : array
+    {
+        return Plan::orderBy('sort_order')
+            ->get(['name as label', 'id as value'])
+            ->toArray();
     }
 
     public function update(Customer $customer, UpdateCustomerRequest $request)

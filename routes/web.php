@@ -67,5 +67,10 @@ Route::middleware("auth")->group(function() {
         Route::get("{customer}", "CustomersController@edit")->name("edit");
         Route::put("{customer}", "CustomersController@update")->name("update");
         Route::delete("{customer}", "CustomersController@destroy")->name("destroy");
+
+        Route::prefix("{customer}/plans")->name("plans.")->group(function() {
+            Route::get("", "CustomersController@plans")->name("edit");
+            Route::put("", "CustomersController@plansUpdate")->name("update");
+        });
     });
 });

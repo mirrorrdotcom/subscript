@@ -22,6 +22,18 @@
                           label="Description (Optional)"
                           value="{{ old('description') ?? $customer->description }}"
                           class="mb-4"></x-rtf-editor>
+            <div class="mb-4">
+                <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-1/2">Current Plan: </label>
+                <div class="relative {{ !empty($plan) ?  'text-gray-700' : 'text-red-400'}} text-sm">
+                    <a href="{{ route('customers.plans.edit', ['customer' => $customer->id]) }}">
+                    @if (!empty($plan))
+                         {{ $plan->name }} subscribed {{ humanize($customer->subscription_date) }}
+                    @else
+                        This customer is not subscribed to any plan
+                    @endif
+                    </a>
+                </div>
+            </div>
             <div class="flex justify-between">
                 <x-form-checkbox name="is_active" label="Activate Customer" checked="{{ old('is_active') ?? $customer->is_active }}"></x-form-checkbox>
                 <button class="btn success"><i class="uil uil-save mr-1/2"></i>Save</button>
