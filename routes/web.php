@@ -73,4 +73,12 @@ Route::middleware("auth")->group(function() {
             Route::put("", "CustomersController@plansUpdate")->name("update");
         });
     });
+    //Consumers Routes
+    Route::prefix("consumers")->name("consumers.")->group(function() {
+        Route::get("", "ConsumersController@all")->name("all");
+        Route::get("create", "ConsumersController@create")->name("create");
+        Route::post("", "ConsumersController@store")->name("store");
+        Route::get("{consumer}", "ConsumersController@edit")->name("edit");
+        Route::delete("{consumer}", "ConsumersController@destroy")->name("destroy");
+    });
 });
