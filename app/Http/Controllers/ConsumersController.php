@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Consumers\CreateConsumerAction;
+use App\Actions\Consumers\DeleteConsumerAction;
 use App\Actions\Consumers\GetConsumersAction;
+use App\Actions\Consumers\UpdateConsumerAction;
 use App\Http\Requests\CreateConsumerRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\DeleteConsumerRequest;
+use App\Http\Requests\UpdateConsumerRequest;
+use App\Models\Consumer;
 
 class ConsumersController extends Controller
 {
@@ -23,45 +27,37 @@ class ConsumersController extends Controller
 
     public function store(CreateConsumerRequest $request)
     {
-        if (!(new CreateConsumerAction())->execute($request->validated())) {
+        if (! (new CreateConsumerAction())->execute($request->validated())) {
             return back()
-                ->withErrors([ "error" => "Could not create customer. Please try again." ]);
+                ->withErrors([ "error" => "Could not create consumer. Please try again." ]);
         }
 
         return redirect()->route("consumers.all");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Consumer $consumer)
     {
-        //
+        return view("consumers.edit")
+            ->with("consumer", $consumer);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UpdateConsumerRequest $request, Consumer $consumer)
     {
-        //
+        if (! (new UpdateConsumerAction())->execute($consumer, $request->validated())) {
+            return back()
+                ->withErrors([ "errors" => "Could not update consumer. Please try again." ]);
+        }
+
+        return redirect()->route("consumers.all");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Consumer $consumer, DeleteConsumerRequest $request)
     {
-        //
+        if (! (new DeleteConsumerAction())->execute($consumer)) {
+            return back()
+                ->withErrors([ "error" => "Could not delete consumer. Please try again" ]);
+        }
+
+        return redirect()->route("consumers.all");
     }
 }

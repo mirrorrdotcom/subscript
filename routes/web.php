@@ -79,6 +79,7 @@ Route::middleware("auth")->group(function() {
         Route::get("create", "ConsumersController@create")->name("create");
         Route::post("", "ConsumersController@store")->name("store");
         Route::get("{consumer}", "ConsumersController@edit")->name("edit");
+        Route::put("{consumer}", "ConsumersController@update")->name("update");
         Route::delete("{consumer}", "ConsumersController@destroy")->name("destroy");
     });
 });
