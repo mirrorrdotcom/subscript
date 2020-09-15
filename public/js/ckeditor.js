@@ -115,7 +115,7 @@ document.querySelectorAll(EDITOR_SELECTOR).forEach(function (editor) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/karam/dev/mirrorr/subscript/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+module.exports = __webpack_require__(/*! /Users/hayan/Freelance/mirrorr/subscript/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
 
 
 /***/ })

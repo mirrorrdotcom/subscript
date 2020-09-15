@@ -6,6 +6,7 @@ use App\Actions\Consumers\CreateConsumerAction;
 use App\Actions\Consumers\DeleteConsumerAction;
 use App\Actions\Consumers\GetConsumersAction;
 use App\Actions\Consumers\UpdateConsumerAction;
+use App\Actions\Consumers\UpdateConsumerTokenAction;
 use App\Http\Requests\CreateConsumerRequest;
 use App\Http\Requests\DeleteConsumerRequest;
 use App\Http\Requests\UpdateConsumerRequest;
@@ -59,5 +60,14 @@ class ConsumersController extends Controller
         }
 
         return redirect()->route("consumers.all");
+    }
+
+    public function updateToken(Consumer $consumer)
+    {
+        if (! (new UpdateConsumerTokenAction())->execute($consumer, array('api_token'))) {
+            return response()->json([ "message" => "An error occurred while updating the API token" ], 400);
+        }
+
+        return response()->json([ "token" => $consumer->api_token ]);
     }
 }

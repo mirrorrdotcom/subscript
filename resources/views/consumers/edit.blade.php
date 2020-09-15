@@ -27,10 +27,7 @@
                     <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-1/2" for="api_token">
                         API Token
                     </label>
-                    <div class="flex items-center py-2">
-                        <input id="api_token" class="disabled appearance-none  w-full bg-gray-50 text-gray-700 text-sm border border-gray-200 py-2 px-3 leading-tight focus:outline-none focus:bg-white" readonly
-                               value="{{ old('api_token') ?? $consumer->api_token }}"/>
-                    </div>
+                    <generate-token value="{{ old('api_token') ?? $consumer->api_token }}"></generate-token>
                 </div>
             </div>
             <div class="flex justify-between">

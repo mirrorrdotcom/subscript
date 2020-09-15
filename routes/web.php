@@ -81,5 +81,9 @@ Route::middleware("auth")->group(function() {
         Route::get("{consumer}", "ConsumersController@edit")->name("edit");
         Route::put("{consumer}", "ConsumersController@update")->name("update");
         Route::delete("{consumer}", "ConsumersController@destroy")->name("destroy");
+
+        Route::prefix("{consumer}/token")->name("tokens.")->group(function() {
+            Route::put("", "ConsumersController@updateToken")->name("update");
+        });
     });
 });
