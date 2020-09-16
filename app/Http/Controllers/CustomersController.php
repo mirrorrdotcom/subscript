@@ -82,4 +82,9 @@ class CustomersController extends Controller
 
         return redirect()->route("customers.edit", [ "customer" => $customer ]);
     }
+
+    public function get(Customer $customer)
+    {
+        return $customer->load('plan');
+    }
 }
