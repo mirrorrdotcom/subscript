@@ -7,10 +7,11 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
-class Consumer extends Model implements Auditable
+class Consumer extends Model implements Auditable, \Illuminate\Contracts\Auth\Authenticatable
 {
-    use Authenticatable, SoftDeletes;
+    use Authenticatable, SoftDeletes, HasRoles;
 
     public const TOKEN_LENGTH = 60;
 

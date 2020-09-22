@@ -85,5 +85,10 @@ Route::middleware("auth")->group(function() {
         Route::prefix("{consumer}/token")->name("tokens.")->group(function() {
             Route::put("", "ConsumersController@updateToken")->name("update");
         });
+
+        Route::prefix("{consumer}/permission")->name("permissions.")->group(function() {
+            Route::get("", "ConsumerPermissionsController@edit")->name("edit");
+            Route::put("", "ConsumerPermissionsController@update")->name("update");
+        });
     });
 });

@@ -93,3 +93,7 @@ Breadcrumbs::for("consumers.edit", function ($trail, $consumer) {
     $trail->parent("consumers.all");
     $trail->push($consumer->name, route("consumers.edit", ["consumer" => $consumer]));
 });
+Breadcrumbs::for("consumers.permissions.edit", function ($trail, $consumer) {
+    $trail->parent("consumers.all");
+    $trail->push($consumer->name, route("consumers.permissions.edit", ["consumer" => $consumer]));
+});
