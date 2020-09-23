@@ -24,6 +24,11 @@
                 <i class="uil uil-user mr-1/2"></i>
                 Customers
             </a>
+
+            <a href="{{ route("consumers.all") }}" class="nav-item {{ request()->is("consumers*") ? "active" : "" }}">
+                <i class="uil uil-data-sharing mr-1/2"></i>
+                API Consumers
+            </a>
             <form action="{{ route("auth.logout") }}" method="post">
                 @csrf
                 <button class="flex items-center px-2 text-sm text-red-300 hover:text-red-700 focus:outline-none">
