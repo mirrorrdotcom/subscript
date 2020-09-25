@@ -20,6 +20,11 @@
                 Audits
             </a>
 
+            <a href="{{ route("transactions.all") }}" class="nav-item {{ request()->is("transactions*") ? "active" : "" }}">
+                <i class="uil uil-transaction mr-1/2"></i>
+                Transactions
+            </a>
+
             <a href="{{ route("customers.all") }}" class="nav-item {{ request()->is("customers*") ? "active" : "" }}">
                 <i class="uil uil-user mr-1/2"></i>
                 Customers

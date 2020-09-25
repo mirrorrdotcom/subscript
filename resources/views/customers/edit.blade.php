@@ -23,6 +23,12 @@
                           value="{{ old('description') ?? $customer->description }}"
                           class="mb-4"></x-rtf-editor>
             <div class="mb-4">
+                <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-1/2">Balance: </label>
+                <div class="relative {{ !empty($plan) && $customer->balance >= $plan->price ?  'text-green-700' : 'text-red-400'}} text-sm">
+                    {{ number_format($customer->balance, 2) }}
+                </div>
+            </div>
+            <div class="mb-4">
                 <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-1/2">Current Plan: </label>
                 <div class="relative {{ !empty($plan) ?  'text-gray-700' : 'text-red-400'}} text-sm">
                     <a href="{{ route('customers.plans.edit', ['customer' => $customer->id]) }}">

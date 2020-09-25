@@ -91,4 +91,8 @@ Route::middleware("auth")->group(function() {
             Route::put("", "ConsumerPermissionsController@update")->name("update");
         });
     });
+    //Transactions Routes
+    Route::prefix("transactions")->name("transactions.")->group(function() {
+        Route::get("", "TransactionsController@all")->name("all");
+    });
 });
