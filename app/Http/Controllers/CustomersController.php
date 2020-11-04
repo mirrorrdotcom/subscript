@@ -13,7 +13,6 @@ use App\Http\Requests\Customer\DeleteCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerPlanRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Models\Customer;
-use Illuminate\Support\Facades\Auth;
 
 class CustomersController extends Controller
 {
@@ -82,14 +81,5 @@ class CustomersController extends Controller
         }
 
         return redirect()->route("customers.edit", [ "customer" => $customer ]);
-    }
-
-    public function get(Customer $customer)
-    {
-        if (! Auth::user()->hasPermissionTo('view customers')) {
-            return response()->json([ "message" => "You can't access this API" ], 403);
-        }
-
-        return $customer->load('plan');
     }
 }

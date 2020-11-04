@@ -29,8 +29,9 @@ class CreateCustomerRequest extends FormRequest
     {
         return [
             "name" => [ "required", "string", "min:1", "max:255" ],
-            "is_active" => [ "required", "boolean" ],
+            "is_active" => [ "boolean" ],
             "description" => [ "nullable", "string", "min:2" ],
+            "email" => [ "required", "email", "unique:customers,email" ]
         ];
     }
 }

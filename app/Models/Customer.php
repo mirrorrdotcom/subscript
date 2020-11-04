@@ -12,7 +12,7 @@ class Customer extends Model implements Auditable
     use SoftDeletes;
 
     protected $fillable = [
-        "name", "description", "is_active", "plan_id", "subscription_date"
+        "name", "description", "is_active", "plan_id", "subscription_date", "email"
     ];
 
     protected $casts = [

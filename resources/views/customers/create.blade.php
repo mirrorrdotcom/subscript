@@ -16,6 +16,13 @@
                               label="Name"
                               value="{{ old('name') }}"></x-form-input>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <x-form-input type="email"
+                              name="email"
+                              placeholder="Enter a valid E-mail"
+                              label="email"
+                              value="{{ old('email') }}"></x-form-input>
+            </div>
             <x-rtf-editor class="w-full"
                           name="description"
                           label="Description (Optional)"

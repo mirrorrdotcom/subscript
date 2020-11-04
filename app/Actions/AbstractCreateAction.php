@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 abstract class AbstractCreateAction
 {
-    public function execute(array $data): bool
+    public function execute(array $data, $returnModel = false)
     {
         if (!$this->canExecute($data)) {
             return false;
@@ -22,6 +22,11 @@ abstract class AbstractCreateAction
             if ($this->shouldAudit($model)) {
                 $this->audit($model);
             }
+
+            if ($returnModel) {
+                return $model;
+            }
+
             return true;
         } catch (Exception $e) {
             Log::error($e->getMessage());
