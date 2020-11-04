@@ -12,5 +12,20 @@ class PermissionSeeder extends Seeder
             "name" => "view customers",
             "guard_name" => "api"
         ]);
+
+        Permission::create([
+            "name" => "create customers",
+            "guard_name" => "api"
+        ]);
+
+        Permission::create([
+            "name" => "edit customers",
+            "guard_name" => "api"
+        ]);
+
+        Permission::create([
+            "name" => "delete customers",
+            "guard_name" => "api"
+        ]);
     }
 }
