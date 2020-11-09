@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Customers\FindOrCreateCustomerAction;
+use App\Actions\Plans\UpdateCustomerPlanAction;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -40,6 +41,18 @@ class CustomersController extends Controller
         if (! Auth::user()->hasPermissionTo('view customers')) {
             return response()->json([ "message" => "You can't access this API" ], 403);
         }
+
+        return $customer->load('plan');
+    }
+
+    public function plan(Customer $customer)
+    {
+        return $customer->load('plan');
+    }
+
+    public function planUpdate(Customer $customer, Request $request)
+    {
+        (new UpdateCustomerPlanAction())->execute($customer, $request->all());
 
         return $customer->load('plan');
     }
