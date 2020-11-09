@@ -14,6 +14,10 @@ Route::name('api.')->prefix('v1')->group(function () {
             });
         });
 
+        Route::prefix('plans')->name('plans.')->group(function () {
+            Route::get('{plan}', 'Api\PlansController@get')->name('get');
+        });
+
         Route::prefix('subscription-models')->name('subscription-models.')->group(function () {
             Route::get('', 'Api\SubscriptionModelsController@all')->name('all');
         });
