@@ -47,11 +47,19 @@ class CustomersController extends Controller
 
     public function plan(Customer $customer)
     {
+        if (! Auth::user()->hasPermissionTo('view customers')) {
+            return response()->json([ "message" => "You can't access this API" ], 403);
+        }
+
         return $customer->load('plan');
     }
 
     public function planUpdate(Customer $customer, Request $request)
     {
+        if (! Auth::user()->hasPermissionTo('edit customers')) {
+            return response()->json(["message" => "You can't access this API"], 403);
+        }
+
         (new UpdateCustomerPlanAction())->execute($customer, $request->all());
 
         return $customer->load('plan');
