@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Contracts\Auditable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model implements Auditable
@@ -23,8 +24,27 @@ class Customer extends Model implements Auditable
         "is_active" => true
     ];
 
-    public function plan() : BelongsTo
+    protected $with = [
+        'plans'
+    ];
+
+    public function plans() : BelongsToMany
     {
-        return $this->belongsTo(Plan::class);
+        return $this->belongsToMany(Plan::class)->withPivot(['start_date', 'end_date', 'deleted_at']);
+    }
+
+    public function getPlanAttribute()
+    {
+        foreach ($this->plans as $plan) {
+            if (! $this->planExpired($plan)) {
+                return $plan;
+            }
+        }
+    }
+
+    public function planExpired($plan)
+    {
+        return isset($plan->pivot->deleted_at) ||
+            (new Carbon($plan->pivot->end_date))->lessThan(Carbon::now()->toDate());
     }
 }

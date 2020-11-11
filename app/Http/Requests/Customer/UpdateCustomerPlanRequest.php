@@ -12,7 +12,7 @@ class UpdateCustomerPlanRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            "subscription_date" => Carbon::now()->toDateTimeString()
+            "start_date" => Carbon::now()->toDateTimeString()
         ]);
     }
 
@@ -25,7 +25,7 @@ class UpdateCustomerPlanRequest extends FormRequest
     {
         return [
             "plan_id" => [ "required", "integer", "exists:plans,id" ],
-            "subscription_date" => [ "required", "date" ],
+            "start_date" => [ "required", "date" ],
         ];
     }
 }

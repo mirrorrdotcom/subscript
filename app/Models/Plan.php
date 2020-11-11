@@ -7,7 +7,6 @@ use App\Traits\HasRtf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plan extends Model implements Auditable
@@ -67,8 +66,8 @@ class Plan extends Model implements Auditable
         );
     }
 
-    public function customers() : HasMany
+    public function customers() : BelongsToMany
     {
-        return $this->hasMany(Customer::class);
+        return $this->belongsToMany(Customer::class);
     }
 }

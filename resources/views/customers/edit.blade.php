@@ -33,7 +33,7 @@
                 <div class="relative {{ !empty($plan) ?  'text-gray-700' : 'text-red-400'}} text-sm">
                     <a href="{{ route('customers.plans.edit', ['customer' => $customer->id]) }}">
                     @if (!empty($plan))
-                         {{ $plan->name }} subscribed {{ humanize($customer->subscription_date) }}
+                         {{ $plan->name }} subscribed {{ humanize($plan->pivot->start_date) }}
                     @else
                         This customer is not subscribed to any plan
                     @endif

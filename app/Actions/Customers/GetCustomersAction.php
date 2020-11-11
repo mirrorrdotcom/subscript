@@ -9,6 +9,6 @@ class GetCustomersAction
 {
     public function execute() : Collection
     {
-        return Customer::with('plan')->get();
+        return Customer::all();
     }
 }
