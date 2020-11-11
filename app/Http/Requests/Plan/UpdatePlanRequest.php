@@ -69,7 +69,7 @@ class UpdatePlanRequest extends FormRequest
             "is_active" => [ "required", "boolean" ],
             "trial_period" => [ "numeric", "gte:0" ],
             "trial_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
-            "recurring_period" => [ "numeric", "gte:0" ],
+            "recurring_period" => [ "numeric", "gt:0" ],
             "recurring_interval" => [ "in:" . TimeInterval::intervalsValidation() ],
             "grace_period" => [ "numeric", "gte:0" ],
             "grace_interval" => [ "in:" . TimeInterval::intervalsValidation() ],

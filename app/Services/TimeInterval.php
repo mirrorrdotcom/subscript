@@ -12,7 +12,7 @@ class TimeInterval
     public const MONTH = 6;
     public const YEAR = 7;
 
-    public static function intervalsArray(): array
+    public static function intervalsArray() : array
     {
         return [
             self::SECOND, self::MINUTE, self::HOUR, self::DAY, self::WEEK,
@@ -20,12 +20,25 @@ class TimeInterval
         ];
     }
 
-    public static function intervalsValidation(): string
+    public static function mappedIntervalsArray() : array
+    {
+        return [
+            self::SECOND => 'Seconds',
+            self::MINUTE => 'Minutes',
+            self::HOUR => 'Hours',
+            self::DAY => 'Days',
+            self::WEEK => 'Weeks',
+            self::MONTH => 'Months',
+            self::YEAR => 'Years',
+        ];
+    }
+
+    public static function intervalsValidation() : string
     {
         return implode(",", self::intervalsArray());
     }
 
-    public static function dropdownOptions(): array
+    public static function dropdownOptions() : array
     {
         return [
             [ "label" => "Second(s)", "value" => self::SECOND ],
