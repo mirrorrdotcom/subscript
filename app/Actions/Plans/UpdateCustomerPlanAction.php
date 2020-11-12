@@ -17,6 +17,8 @@ class UpdateCustomerPlanAction extends AbstractUpdateAction implements AuditActi
 
     protected function update(Model $model, array $data)
     {
+        $this->unsubscribeFromExistingPlan($model);
+
         $this->startDate = $data['start_date'];
 
         $this->plan = Plan::find($data['plan_id']);
@@ -25,8 +27,6 @@ class UpdateCustomerPlanAction extends AbstractUpdateAction implements AuditActi
             'start_date' => $this->startDate,
             'end_date' => $this->calculateEndDate())
         );
-
-        $this->unsubscribeFromExistingPlan($model);
     }
 
     private function calculateEndDate()
@@ -42,6 +42,7 @@ class UpdateCustomerPlanAction extends AbstractUpdateAction implements AuditActi
             DB::table('customer_plan')
                 ->where('customer_id', $model->id)
                 ->where('plan_id', $model->plan->id)
+                ->where('deleted_at', null)
                 ->update(array('deleted_at' => DB::raw('NOW()')));
         }
     }
