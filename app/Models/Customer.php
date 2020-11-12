@@ -13,7 +13,7 @@ class Customer extends Model implements Auditable
     use SoftDeletes;
 
     protected $fillable = [
-        "name", "description", "is_active", "plan_id", "subscription_date", "email"
+        "name", "description", "is_active", "email"
     ];
 
     protected $casts = [
@@ -24,8 +24,8 @@ class Customer extends Model implements Auditable
         "is_active" => true
     ];
 
-    protected $with = [
-        'plans'
+    protected $appends = [
+        'plan'
     ];
 
     public function plans() : BelongsToMany

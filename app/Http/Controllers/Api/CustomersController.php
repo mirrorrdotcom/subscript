@@ -6,6 +6,7 @@ use App\Actions\Customers\FindOrCreateCustomerAction;
 use App\Actions\Plans\UpdateCustomerPlanAction;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +43,7 @@ class CustomersController extends Controller
             return response()->json([ "message" => "You can't access this API" ], 403);
         }
 
-        return $customer->load('plan');
+        return $customer->makeHidden('plans');
     }
 
     public function plan(Customer $customer)
@@ -51,7 +52,7 @@ class CustomersController extends Controller
             return response()->json([ "message" => "You can't access this API" ], 403);
         }
 
-        return $customer->load('plan');
+        return $customer->makeHidden('plans');
     }
 
     public function planUpdate(Customer $customer, Request $request)
@@ -60,8 +61,8 @@ class CustomersController extends Controller
             return response()->json(["message" => "You can't access this API"], 403);
         }
 
-        (new UpdateCustomerPlanAction())->execute($customer, $request->all());
+        (new UpdateCustomerPlanAction())->execute($customer, array_merge($request->all(), ['start_date' => Carbon::now()->toDateTimeString()]));
 
-        return $customer->load('plan');
+        return $customer->makeHidden('plans');
     }
 }
