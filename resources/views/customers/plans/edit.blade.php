@@ -10,13 +10,16 @@
         <form action="{{ route("customers.plans.update", [ "customer" => $customer]) }}" method="post" class="py-4 px-5 bg-white rounded shadow-md">
             @csrf
             @method("put")
-            @if(empty($plan))
             <div class="mb-4">
-                <div class="relative text-red-400 text-sm">
-                    This customer is not subscribed to any plan
+                <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-1/2">Current Plan Details: </label>
+                <div class="relative {{ !empty($plan) ?  'text-gray-700' : 'text-red-400'}} text-sm">
+                    @if (!empty($plan))
+                        <strong>{{ $plan->name }} plan</strong> subscribed {{ humanize($plan->pivot->start_date) }} and ends <span class="text-red-400">{{ humanize($plan->pivot->end_date) }} </span>
+                    @else
+                        This customer has no active subscription
+                    @endif
                 </div>
             </div>
-            @endif
             <x-form-select name="plan_id"
                            label="Change Plan"
                            value="{{ old('plan') ?? $plan->id ?? null}}"
