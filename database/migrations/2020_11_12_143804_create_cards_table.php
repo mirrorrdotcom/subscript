@@ -32,7 +32,7 @@ class CreateCardsTable extends Migration
             $table->string('product_id');
             $table->string('product_type');
             $table->string('avs_check');
-            $table->string('cvv_check');
+            $table->string('cvv_check')->nullable();
             $table->boolean('payouts');
             $table->timestamps();
 
