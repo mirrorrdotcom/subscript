@@ -22,9 +22,7 @@ class FindOrCreateCustomerAction extends AbstractCreateAction implements AuditAc
 
     private function getCustomerByEmail($email)
     {
-        return Customer::with('plan')
-            ->where('email', $email)
-            ->first();
+        return Customer::where('email', $email)->first();
     }
 
     private function createNewCustomer(array $data)

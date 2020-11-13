@@ -46,13 +46,13 @@ class CustomersController extends Controller
         return $customer->makeHidden('plans');
     }
 
-    public function plan(Customer $customer)
+    public function plans(Customer $customer)
     {
         if (! Auth::user()->hasPermissionTo('view customers')) {
             return response()->json([ "message" => "You can't access this API" ], 403);
         }
 
-        return $customer->makeHidden('plans');
+        return $customer->load('plans');
     }
 
     public function planUpdate(Customer $customer, Request $request)
@@ -63,6 +63,6 @@ class CustomersController extends Controller
 
         (new UpdateCustomerPlanAction())->execute($customer, array_merge($request->all(), ['start_date' => Carbon::now()->toDateTimeString()]));
 
-        return $customer->makeHidden('plans');
+        return Customer::find($customer->id)->makeHidden('plans');
     }
 }
