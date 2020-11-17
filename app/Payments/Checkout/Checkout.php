@@ -33,7 +33,7 @@ class Checkout
         try {
             $token = $this->requestToken($cardDetails);
             $this->performTokenPayment($token);
-            return $this->paymentResponse->paymentWasApproved();
+            return $this->paymentResponse->getApproved();
         } catch (Exception $exception) {
             //TODO:: Add logs
             return false;
