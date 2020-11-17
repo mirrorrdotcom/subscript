@@ -8,9 +8,16 @@ use App\Payments\CardInterface;
 
 class Card extends Model
 {
+    protected $appends = ['card_number'];
+
     public function source()
     {
         return $this->morphOne(PaymentSource::class, 'sourceable');
+    }
+
+    public function getCardNumberAttribute()
+    {
+        return 'xxxx-xxxx-xxxx-'.$this->last_four;
     }
 
     //TODO::Refactor
