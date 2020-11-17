@@ -25,14 +25,15 @@ class Checkout
         $payment = new Payment($source, $currency);
         $payment->amount = $amount;
 
-        return $this->paymentResponse = $this->checkoutApi->payments()->request($payment);
+        return $this->paymentResponse = new PaymentResponse($this->checkoutApi->payments()->request($payment));
     }
 
     public function verifyCard($cardDetails)
     {
         try {
             $token = $this->requestToken($cardDetails);
-            return $this->performTokenPayment($token)->getValue('approved');
+            $this->performTokenPayment($token);
+            return $this->paymentResponse->paymentWasApproved();
         } catch (Exception $exception) {
             //TODO:: Add logs
             return false;
@@ -67,8 +68,13 @@ class Checkout
         return $this->paymentResponse;
     }
 
+    public function getSource()
+    {
+        return $this->paymentResponse->getSource();
+    }
+
     public function getSourceId()
     {
-        return $this->getValue('source')['id'];
+        return $this->getSource()['id'];
     }
 }
