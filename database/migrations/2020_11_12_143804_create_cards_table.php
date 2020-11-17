@@ -34,6 +34,7 @@ class CreateCardsTable extends Migration
             $table->string('avs_check');
             $table->string('cvv_check')->nullable();
             $table->boolean('payouts');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('source_id')
