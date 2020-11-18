@@ -5,27 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Customers\FindOrCreateCustomerAction;
 use App\Actions\Plans\UpdateCustomerPlanAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\FindOrCreateCustomerRequest;
 use App\Models\Customer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class CustomersController extends Controller
 {
-    public function store(Request $request)
+    public function store(FindOrCreateCustomerRequest $request)
     {
         if (! Auth::user()->hasPermissionTo('create customers')) {
             return response()->json([ "message" => "You can't access this API" ], 403);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'name' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 403);
         }
 
         $customer = (new FindOrCreateCustomerAction())->execute($request->all(), true);
