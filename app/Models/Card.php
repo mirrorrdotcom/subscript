@@ -24,7 +24,7 @@ class Card extends Model
     }
 
     //TODO::Refactor
-    public static function addCardFromPaymentResponse(Customer $customer, CardInterface $cardResponse)
+    public static function createCardFromPaymentResponse(Customer $customer, CardInterface $cardResponse)
     {
         $card = new self();
         $card->customer_id = $customer->id;
@@ -48,5 +48,17 @@ class Card extends Model
         $card->save();
 
         return $card;
+    }
+
+    public static function getCardIfFingerPrintExistsForCustomer(Customer $customer, $fingerPrint)
+    {
+        return Card::where('customer_id', $customer->id)->where('fingerprint', $fingerPrint)->first();
+    }
+
+    public function updatePaymentSource(PaymentSource $source)
+    {
+        $this->source_id = $source->id;
+        $this->save();
+        return $this;
     }
 }

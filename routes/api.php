@@ -15,6 +15,7 @@ Route::name('api.')->prefix('v1')->group(function () {
 
             Route::prefix("{customer}/cards")->name("cards.")->group(function() {
                 Route::get('', 'Api\CardsController@get')->name('get');
+                Route::post('', 'Api\CardsController@store')->name('store');
             });
         });
 

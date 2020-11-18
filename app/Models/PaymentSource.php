@@ -12,4 +12,15 @@ class PaymentSource extends Model
     {
         return $this->morphTo();
     }
+
+    public static function addCardSource(Card $card, $source)
+    {
+        $paymentSource = new PaymentSource();
+        $paymentSource->source = $source;
+        $paymentSource->sourceable_id = $card->id;
+        $paymentSource->sourceable_type = Card::class;
+        $paymentSource->save();
+
+        return $paymentSource;
+    }
 }
