@@ -13,9 +13,11 @@ class PaymentSource extends Model
         return $this->morphTo();
     }
 
-    public static function addCardSource(Card $card, $source)
+    //TODO:: refactor
+    public static function addCardSource(Card $card, $source, $customerId)
     {
         $paymentSource = new PaymentSource();
+        $paymentSource->customer_id = $customerId;
         $paymentSource->source = $source;
         $paymentSource->sourceable_id = $card->id;
         $paymentSource->sourceable_type = Card::class;

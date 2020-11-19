@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contracts\Auditable;
 use App\Traits\HasRtf;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -69,5 +70,27 @@ class Plan extends Model implements Auditable
     public function customers() : BelongsToMany
     {
         return $this->belongsToMany(Customer::class);
+    }
+
+    //TODO: extract this to the Checkout class?
+    public function getAmount()
+    {
+        return $this->price * 100;
+    }
+
+    public function isActive()
+    {
+        if (! isset($this->pivot)) {
+            return false;
+        }
+
+        return $this->planIsActive();
+    }
+
+    public function planIsActive()
+    {
+        return empty($this->pivot->deleted_at) &&
+            (new Carbon($this->pivot->end_date))->isAfter(Carbon::now()->toDate()) &&
+            (new Carbon($this->pivot->start_date))->isBefore(Carbon::now()->toDate());
     }
 }

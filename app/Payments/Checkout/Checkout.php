@@ -77,4 +77,9 @@ class Checkout
     {
         return $this->getSource()['id'];
     }
+
+    public function paymentApproved()
+    {
+        return $this->paymentResponse->getApproved();
+    }
 }
