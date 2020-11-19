@@ -15,9 +15,15 @@ class CreateSourcesTable extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
             $table->string('source')->unique();
             $table->morphs('sourceable');
+            $table->boolean('primary')->default(false);
             $table->timestamps();
+
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('customers');
         });
     }
 
