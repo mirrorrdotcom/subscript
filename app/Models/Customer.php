@@ -98,6 +98,10 @@ class Customer extends Model implements Auditable
         if (! empty($this->primarySource)) {
             $checkout->performExistingSourcePayment($this->primarySource->source, $plan->getAmount());
 
+            $payment = Payment::generatePaymentFromPaymentResponse($checkout->getPaymentResponse());
+            $payment->addPlan($plan->id)
+                ->addCustomer($this->id)
+                ->addSource($this->primarySource->id)->save();
             if ($checkout->paymentApproved()) {
                 return true;
             }
@@ -105,6 +109,8 @@ class Customer extends Model implements Auditable
 
         foreach ($this->sources as $source) {
             $checkout->performExistingSourcePayment($source->source, $plan->getAmount());
+            $payment = Payment::generatePaymentFromPaymentResponse($checkout->getPaymentResponse());
+            $payment->addPlan($plan->id)->addCustomer($this->id)->addSource($source->id)->save();
             if ($checkout->paymentApproved()) {
                 return true;
             }
