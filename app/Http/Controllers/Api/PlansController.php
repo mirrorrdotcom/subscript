@@ -32,6 +32,6 @@ class PlansController extends Controller
             return response()->json(['message' => 'An error occurred trying to subscribe to the plan']);
         }
 
-        return $customer->plan;
+        return $customer->refresh()->makeHidden(['plans', 'sources']);
     }
 }
