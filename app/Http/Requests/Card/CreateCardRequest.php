@@ -28,7 +28,8 @@ class CreateCardRequest extends FormRequest
             'expiry_month' => 'required|numeric|digits:2|between:1,12',
             'expiry_year' => 'required|numeric|digits:4',
             'cvv' => 'required|digits:3',
-            "name" => 'string',
+            'name' => 'string',
+            'primary' => 'boolean',
         ];
     }
 }

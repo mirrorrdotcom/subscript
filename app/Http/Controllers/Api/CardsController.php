@@ -44,7 +44,7 @@ class CardsController extends Controller
         }
 
         $card = Card::createCardFromPaymentResponse($customer, new CardResponse($checkout->getSource()));
-        $paymentSource = PaymentSource::addCardSource($card, $checkout->getSourceId());
+        $paymentSource = PaymentSource::addCardSource($card, $checkout->getSourceId(), $customer->id);
         $card = $card->updatePaymentSource($paymentSource);
 
         return response()->json($card->only('id', 'scheme', 'card_type', 'issuer'), 201);
