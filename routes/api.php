@@ -19,6 +19,10 @@ Route::name('api.')->prefix('v1')->group(function () {
             });
         });
 
+        Route::prefix('cards')->name('cards.')->group(function () {
+            Route::put('{card}', 'Api\CardsController@update')->name('update');
+        });
+
         Route::prefix('plans')->name('plans.')->group(function () {
             Route::get('{plan}', 'Api\PlansController@get')->name('get');
         });

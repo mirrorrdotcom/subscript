@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Card\CreateCardRequest;
+use App\Http\Requests\Card\UpdateCardRequest;
 use App\Models\Card;
 use App\Models\Customer;
 use App\Models\PaymentSource;
@@ -48,5 +49,10 @@ class CardsController extends Controller
         $card = $card->updatePaymentSource($paymentSource);
 
         return response()->json($card->only('id', 'scheme', 'card_type', 'issuer', 'card_number'), 201);
+    }
+
+    public function update(Card $card, UpdateCardRequest $request)
+    {
+        return $card->updatePrimary($request->input('primary'));
     }
 }

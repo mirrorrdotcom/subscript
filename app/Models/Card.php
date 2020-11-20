@@ -61,4 +61,26 @@ class Card extends Model
         $this->save();
         return $this;
     }
+
+    public function updatePrimary($value)
+    {
+        if ($value == true) {
+            $this->removePrimaryFromCustomersCards();
+        }
+
+        $this->updatePrimaryValue($value);
+
+        return $this;
+    }
+
+    private function updatePrimaryValue($value)
+    {
+        $this->source->primary = $value;
+        return $this->source->save();
+    }
+
+    private function removePrimaryFromCustomersCards()
+    {
+        return PaymentSource::where('customer_id', $this->customer_id)->update(['primary' => 0]);
+    }
 }
