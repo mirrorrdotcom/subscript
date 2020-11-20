@@ -27,7 +27,7 @@ class CreateCardRequest extends FormRequest
             'card_number' => 'required',
             'expiry_month' => 'required|numeric|digits:2|between:1,12',
             'expiry_year' => 'required|numeric|digits:4',
-            'cvv' => 'required|digits:3',
+            'cvv' => 'required',
             'name' => 'string',
             'primary' => 'boolean',
         ];

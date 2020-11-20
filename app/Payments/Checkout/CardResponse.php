@@ -14,78 +14,83 @@ class CardResponse implements CardInterface
         $this->source = $source;
     }
 
+    private function getValue($value)
+    {
+        return isset($this->source[$value]) ? $this->source[$value] : null;
+    }
+
     public function getExpiryMonth()
     {
-        return $this->source['expiry_month'];
+        return $this->getValue('expiry_month');
     }
 
     public function getExpiryYear()
     {
-        return $this->source['expiry_year'];
+        return $this->getValue('expiry_year');
     }
 
     public function getScheme()
     {
-        return $this->source['scheme'];
+        return $this->getValue('scheme');
     }
 
     public function getLastFour()
     {
-        return $this->source['last4'];
+        return $this->getValue('last4');
     }
 
     public function getFingerPrint()
     {
-        return $this->source['fingerprint'];
+        return $this->getValue('fingerprint');
     }
 
     public function getBIN()
     {
-        return $this->source['bin'];
+        return $this->getValue('bin');
     }
 
     public function getCardType()
     {
-        return $this->source['card_type'];
+        return $this->getValue('card_type');
     }
 
     public function getCardCategory()
     {
-        return $this->source['card_category'];
+        return $this->getValue('card_category');
     }
 
     public function getIssuer()
     {
-        return $this->source['issuer'];
+        return $this->getValue('issuer');
     }
 
     public function getIssuerCountry()
     {
-        return $this->source['issuer_country'];
+        return $this->getValue('issuer_country');
     }
 
     public function getProductId()
     {
-        return $this->source['product_id'];
+        return $this->getValue('product_id');
     }
 
     public function getProductType()
     {
-        return $this->source['product_type'];
+        return $this->getValue('product_type');
     }
 
     public function getAVSCheck()
     {
-        return $this->source['avs_check'];
+        return $this->getValue('avs_check');
     }
 
     public function getCVVCheck()
     {
-        return $this->source['cvv_check'];
+        return $this->getValue('cvv_check');
     }
 
     public function getAllowsPayout()
     {
-        return $this->source['payouts'];
+        return $this->getValue('payouts');
     }
 }

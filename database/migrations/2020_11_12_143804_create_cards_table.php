@@ -25,15 +25,15 @@ class CreateCardsTable extends Migration
             $table->string('last_four', 4);
             $table->string('fingerprint');
             $table->string('bin');
-            $table->string('card_type');
+            $table->string('card_type')->nullable();
             $table->string('card_category')->nullable();
-            $table->string('issuer');
-            $table->string('country');
-            $table->string('product_id');
-            $table->string('product_type');
-            $table->string('avs_check');
+            $table->string('issuer')->nullable();
+            $table->string('country')->nullable();
+            $table->string('product_id')->nullable();
+            $table->string('product_type')->nullable();
+            $table->string('avs_check')->nullable();
             $table->string('cvv_check')->nullable();
-            $table->boolean('payouts');
+            $table->boolean('payouts')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
