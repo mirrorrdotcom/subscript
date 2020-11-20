@@ -57,6 +57,7 @@ class Checkout
     public function requestToken($cardDetails)
     {
         $card = new Card($cardDetails['card_number'], $cardDetails['expiry_month'], $cardDetails['expiry_year']);
+        $card->cvv = $cardDetails['cvv'];
         $response = $this->checkoutApi->tokens()->request($card);
 
         return $response->getValue('token');
