@@ -20,12 +20,16 @@ class Checkout
         $this->checkoutApi = new CheckoutApi(env('CHECKOUT_SECRET'), env('CHECKOUT_SANDBOX_ENV'), env('CHECKOUT_PUBLIC'));
     }
 
-    public function performPayment(Source $source, $amount = 0, $currency = 'USD')
+    public function performPayment(Source $source, $amount = 0, $currency = 'USD') : PaymentResponseInterface
     {
-        $payment = new Payment($source, $currency);
-        $payment->amount = $amount;
+        try {
+            $payment = new Payment($source, $currency);
+            $payment->amount = $amount;
 
-        return $this->paymentResponse = new PaymentResponse($this->checkoutApi->payments()->request($payment));
+            return $this->paymentResponse = new PaymentResponse($this->checkoutApi->payments()->request($payment));
+        } catch (Exception $exception) {
+            return $this->paymentResponse = new FailedPaymentResponse();
+        }
     }
 
     public function verifyCard($cardDetails)

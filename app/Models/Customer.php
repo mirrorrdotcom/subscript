@@ -96,19 +96,24 @@ class Customer extends Model implements Auditable
     {
         $checkout = new Checkout();
         if (! empty($this->primarySource)) {
-            $checkout->performExistingSourcePayment($this->primarySource->source, $plan->getAmount());
-
-            $payment = Payment::generatePaymentFromPaymentResponse($checkout->getPaymentResponse());
-            $payment->addPlan($plan->id)
-                ->addCustomer($this->id)
-                ->addSource($this->primarySource->id)->save();
-            if ($checkout->paymentApproved()) {
-                return true;
+            $response = $checkout->performExistingSourcePayment($this->primarySource->source, $plan->getAmount());
+            if ($response->getApproved()) {
+                $payment = Payment::generatePaymentFromPaymentResponse($checkout->getPaymentResponse());
+                $payment->addPlan($plan->id)
+                    ->addCustomer($this->id)
+                    ->addSource($this->primarySource->id)->save();
+                if ($checkout->paymentApproved()) {
+                    return true;
+                }
             }
         }
 
         foreach ($this->sources as $source) {
-            $checkout->performExistingSourcePayment($source->source, $plan->getAmount());
+            $response = $checkout->performExistingSourcePayment($source->source, $plan->getAmount());
+
+            if (! $response->getApproved()) {
+                continue;
+            }
             $payment = Payment::generatePaymentFromPaymentResponse($checkout->getPaymentResponse());
             $payment->addPlan($plan->id)->addCustomer($this->id)->addSource($source->id)->save();
             if ($checkout->paymentApproved()) {

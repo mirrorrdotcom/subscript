@@ -3,7 +3,7 @@
 namespace App\Payments\Checkout;
 
 
-class PaymentResponse
+class PaymentResponse implements PaymentResponseInterface
 {
     protected $response;
     protected $source;
