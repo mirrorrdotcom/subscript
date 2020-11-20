@@ -38,7 +38,7 @@ class CardsController extends Controller
 
         if (! empty($existingCard)) {
             return response()->json([
-                'card' => $existingCard,
+                'card' => $existingCard->only('id', 'scheme', 'card_type', 'issuer', 'card_number'),
                 'message' => 'Card already exists'
             ]);
         }
@@ -47,6 +47,6 @@ class CardsController extends Controller
         $paymentSource = PaymentSource::addCardSource($card, $checkout->getSourceId(), $customer->id);
         $card = $card->updatePaymentSource($paymentSource);
 
-        return response()->json($card->only('id', 'scheme', 'card_type', 'issuer'), 201);
+        return response()->json($card->only('id', 'scheme', 'card_type', 'issuer', 'card_number'), 201);
     }
 }
