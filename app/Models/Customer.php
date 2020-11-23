@@ -128,6 +128,19 @@ class Customer extends Model implements Auditable
 
     public function activatePlan(Plan $plan)
     {
+        $activePlan = $this->plan;
+
+        $subscribed = $this->updateCustomerPlan($plan);
+
+        if (! empty($activePlan)) {
+            $this->plans()->updateExistingPivot($this->plan, ['renew' => 0]);
+        }
+
+        return $subscribed;
+    }
+
+    private function updateCustomerPlan(Plan $plan)
+    {
         $startDate = Carbon::now()->toDateTimeString();
 
         if (! empty($this->plan)) {
