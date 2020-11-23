@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\Subscriptions\SubscribeCustomerToPlanAction;
-use App\Models\Customer;
+use App\Actions\Subscriptions\RenewCustomerSubscriptionAction;
 use App\Models\CustomerPlan;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -39,7 +38,7 @@ class RenewSubscriptions extends Command
         $customerPlansExpiring = $this->getPlansToBeRenewed();
 
         foreach ($customerPlansExpiring as $customerPlan) {
-            (new SubscribeCustomerToPlanAction())->execute($customerPlan->customer, $customerPlan->plan);
+            (new RenewCustomerSubscriptionAction())->execute($customerPlan->customer, $customerPlan->plan);
         }
     }
 

@@ -22,8 +22,9 @@ class UpdateCustomerPlanAction extends AbstractUpdateAction implements AuditActi
 
         $model->plans()->attach($this->plan->id, array(
             'start_date' => $this->startDate,
-            'end_date' => $this->calculateEndDate())
-        );
+            'end_date' => $this->calculateEndDate(),
+            'renew' => true
+            ));
     }
 
     private function calculateEndDate()
