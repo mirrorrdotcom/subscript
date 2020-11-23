@@ -17,6 +17,7 @@ class CreateCustomerPlanTable extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('plan_id');
+            $table->boolean('renew')->default(true);
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->softDeletes();

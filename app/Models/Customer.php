@@ -33,7 +33,9 @@ class Customer extends Model implements Auditable
 
     public function plans() : BelongsToMany
     {
-        return $this->belongsToMany(Plan::class)->withPivot(['start_date', 'end_date', 'deleted_at']);
+        return $this->belongsToMany(Plan::class)
+            ->whereNull('customer_plan.deleted_at')
+            ->withPivot(['renew', 'start_date', 'end_date', 'deleted_at']);
     }
 
     public function payments() : HasMany
