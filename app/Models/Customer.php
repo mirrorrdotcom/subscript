@@ -31,6 +31,10 @@ class Customer extends Model implements Auditable
         'plan'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at', 'deleted_at'
+    ];
+
     public function plans() : BelongsToMany
     {
         return $this->belongsToMany(Plan::class)

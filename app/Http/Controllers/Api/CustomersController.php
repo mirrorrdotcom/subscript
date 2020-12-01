@@ -19,7 +19,7 @@ class CustomersController extends Controller
         $customer = (new FindOrCreateCustomerAction())->execute($request->validated(), true);
 
         if ($customer instanceof Customer) {
-            return $customer;
+            return $customer->only(['id', 'name', 'email', 'description', 'is_active', 'plan']);
         }
 
         return response()->json([ "message" => "Couldn't add the customer"], 404);
