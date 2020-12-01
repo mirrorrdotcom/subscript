@@ -30,6 +30,10 @@ class Plan extends Model implements Auditable
         "sort_order" => 0
     ];
 
+    protected $appends = [
+        "expiry_date"
+    ];
+
     public function getStrippedDescriptionAttribute(): string
     {
         return $this->stripRtfField("description", 20);
@@ -65,6 +69,15 @@ class Plan extends Model implements Auditable
             "plan_id",
             "feature_id"
         );
+    }
+
+    public function getExpiryDateAttribute()
+    {
+        if (! isset($this->pivot)) {
+            return null;
+        }
+
+        return $this->pivot->end_date;
     }
 
     public function customers() : BelongsToMany
