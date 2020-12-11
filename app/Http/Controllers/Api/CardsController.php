@@ -20,7 +20,7 @@ class CardsController extends Controller
             ->where('customer_id', $customer->id)
             ->get();
 
-        return $cards->makeHidden('last_four');
+        return ['cards' => $cards->makeHidden('last_four')];
     }
 
     public function store(Customer $customer, CreateCardRequest $request)

@@ -9,7 +9,7 @@ class GetSubscriptionModelsAction
 {
     public function execute(): Collection
     {
-        return SubscriptionModel::with("plans")
+        return SubscriptionModel::with("plans.features")
             ->latest()
             ->get();
     }
