@@ -147,12 +147,17 @@ class Customer extends Model implements Auditable
     {
         $startDate = Carbon::now()->toDateTimeString();
 
-        if (! empty($this->plan)) {
+        if ($this->newPlanIsADowngrade($plan)) {
             $startDate = $this->plan->pivot->end_date;
         }
 
         return (new UpdateCustomerPlanAction())->execute($this,
             ['start_date' => $startDate, 'plan_id' => $plan->id]);
+    }
+
+    private function newPlanIsADowngrade($plan)
+    {
+        return ! empty($this->plan) && $this->plan->sort_order > $plan->sort_order;
     }
 
     public function isSubscribedToPlan(Plan $plan)
