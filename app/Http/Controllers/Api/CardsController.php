@@ -30,7 +30,7 @@ class CardsController extends Controller
         if (! $checkout->verifyCard($request->validated())) {
             return response()->json([
                 'message' => 'Failed to verify the card'
-            ]);
+            ], 400);
         }
 
         $fingerPrint = (new CardResponse($checkout->getSource()))->getFingerPrint();
