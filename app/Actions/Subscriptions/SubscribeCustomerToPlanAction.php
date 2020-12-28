@@ -26,6 +26,6 @@ class SubscribeCustomerToPlanAction
             return response()->json(['message' => 'An error occurred trying to subscribe to the plan']);
         }
 
-        return $customer->refresh()->makeHidden(['plans', 'sources']);
+        return response()->json($customer->refresh()->makeHidden(['plans', 'sources']), 201);
     }
 }
