@@ -137,7 +137,7 @@ class Customer extends Model implements Auditable
         $subscribed = $this->updateCustomerPlan($plan);
 
         if (! empty($activePlan)) {
-            $this->plans()->updateExistingPivot($this->plan, ['renew' => 0]);
+            $this->plans()->updateExistingPivot($this->plan, ['renew' => 0, 'end_date' => Carbon::now()->toDateTimeString()]);
         }
 
         return $subscribed;
