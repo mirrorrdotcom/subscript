@@ -115,6 +115,10 @@ class Customer extends Model implements Auditable
         }
 
         foreach ($this->sources as $source) {
+            if ($source->id == $this->primarySource->id) {
+                continue;
+            }
+
             $response = $checkout->performExistingSourcePayment($source->source, $plan->getAmount());
 
             if (! $response->getApproved()) {
@@ -137,7 +141,11 @@ class Customer extends Model implements Auditable
         $subscribed = $this->updateCustomerPlan($plan);
 
         if (! empty($activePlan)) {
-            $this->plans()->updateExistingPivot($this->plan, ['renew' => 0, 'end_date' => Carbon::now()->toDateTimeString()]);
+            $updateValues = ['renew' => 0];
+            if (! $this->newPlanIsADowngrade($plan)) {
+                $updateValues[] = ['end_date' => Carbon::now()->toDateTimeString()];
+            }
+            $this->plans()->updateExistingPivot($this->plan, $updateValues);
         }
 
         return $subscribed;
