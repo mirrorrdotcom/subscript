@@ -115,7 +115,7 @@ class Customer extends Model implements Auditable
         }
 
         foreach ($this->sources as $source) {
-            if ($source->id == $this->primarySource->id) {
+            if (isset($this->primarySource) && $source['id'] == $this->primarySource->id) {
                 continue;
             }
 
