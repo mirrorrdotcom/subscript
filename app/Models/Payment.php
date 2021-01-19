@@ -27,16 +27,16 @@ class Payment extends Model
         $payment = new Payment();
 
         $payment->payment_id = $response->getValue('id');
-        $payment->eci = $response->getEci();
-        $payment->scheme_id = $response->getSchemeId();
-        $payment->response_code = $response->getResponseCode();
-        $payment->response_summary = $response->getResponseSummary();
-        $payment->auth_code = $response->getAuthCode();
-        $payment->currency = $response->getCurrency();
-        $payment->amount = $response->getAmount();
-        $payment->reference = $response->getReference();
-        $payment->status = $response->getStatus();
-        $payment->approved = $response->getApproved();
+        $payment->eci = $response->getEci() ?? '';
+        $payment->scheme_id = $response->getSchemeId() ?? '';
+        $payment->response_code = $response->getResponseCode() ?? '';
+        $payment->response_summary = $response->getResponseSummary() ?? '';
+        $payment->auth_code = $response->getAuthCode() ?? '';
+        $payment->currency = $response->getCurrency() ?? '';
+        $payment->amount = $response->getAmount() ?? '';
+        $payment->reference = $response->getReference() ?? '';
+        $payment->status = $response->getStatus() ?? '';
+        $payment->approved = $response->getApproved() ?? '';
 
         return $payment;
     }
